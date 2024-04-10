@@ -14,10 +14,20 @@ conn.on('error', (err) => {
 
 
 const userSchema = new mongoose.Schema({
-    name: String,
-    email: { type: String, unique: true },
-    password: String
-}, { timestamps: true });
+  username: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  dateOfBirth: { type: Date },
+  gender: { type: String },
+  location: { type: String },
+  contactInfo: {
+      phone: { type: String },
+      address: { type: String }
+  },
+  accountStatus: { type: String, default: 'active' }
+});
+
+const User = conn.model('User', userSchema);
 
 
 const doctorSchema = new mongoose.Schema({
@@ -67,8 +77,7 @@ const providerSchema = new mongoose.Schema({
 const Doctor = conn.model('Doctor', doctorSchema);
 
 
-const User = conn.model('User', userSchema);
-
+ 
 const Provider = conn.model('Provider', providerSchema);
 
 const serviceSchema = new mongoose.Schema({

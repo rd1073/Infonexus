@@ -10,7 +10,7 @@ const bcrypt = require("bcrypt");
  
 
 //signup a user withemail and password
-const Signup = async (req, res) => {
+/*const Signup = async (req, res) => {
     try {
       const {  password, email, name } = req.body;
       //console.log("Request Body:", req.body);
@@ -54,7 +54,9 @@ const Signup = async (req, res) => {
       console.error(err);
       res.status(500).json({ error: "Server error probably" });
     }
-  };
+  };*/
+
+
 
 
 
@@ -108,5 +110,56 @@ const Signup = async (req, res) => {
       }};
 
 
-  module.exports={ Signup, Login}
+      const registerUser = async (req, res) => {
+        try {
+            const { username, email, password, dateOfBirth, gender, location, contactInfo } = req.body;
+    
+            // Check if the user already exists
+            const existingUser = await User.findOne({ email });
+            if (existingUser) {
+                return res.status(400).json({ message: 'User already exists' });
+            }
+    
+            // Create a new user
+            const newUser = new User({
+                username,
+                email,
+                password,
+                dateOfBirth,
+                gender,
+                location,
+                contactInfo
+            });
+    
+            // Save the user to the database
+            await newUser.save();
+    
+            res.status(201).json({ message: 'User registered successfully', user: newUser });
+        } catch (error) {
+            console.error('Error registering user:', error);
+            res.status(500).json({ message: 'Failed to register user' });
+        }
+    };
+    
+    const getUserDetails = async (req, res) => {
+      try {
+           const user = req.user;
+          if (!user) {
+              return res.status(401).json({ message: 'User not authenticated' });
+          }
+  
+          // If user is authenticated, you can fetch their details from the database
+          const userDetails = await User.findById(user.id);
+          if (!userDetails) {
+              return res.status(404).json({ message: 'User not found' });
+          }
+  
+          res.json(userDetails);
+      } catch (error) {
+          console.error('Error fetching user details:', error);
+          res.status(500).json({ message: 'Failed to fetch user details' });
+      }
+  };
+    
+  module.exports={ registerUser, Login, getUserDetails}
   

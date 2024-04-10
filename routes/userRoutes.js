@@ -1,14 +1,17 @@
 const express = require("express");
 
-const { Signup, Login } =require("../controllers/userController");
+const { registerUser, Login , getUserDetails} =require("../controllers/userController");
  
 const router = express.Router();
 
+const {protect}=require('../config/authMiddleware')
 
 
   
-router.route("/signup").post(Signup);
+router.route("/register").post(registerUser);
 router.route("/login").post(Login);
+router.route("/get-user-details").get(getUserDetails);
+
 
 
  
