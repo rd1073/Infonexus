@@ -10,7 +10,7 @@ const {protect}=require('../config/authMiddleware')
   
 router.route("/register").post(registerUser);
 router.route("/login").post(Login);
-router.route("/get-user-details").get(getUserDetails);
+router.route("/get-user-details").get(protect,getUserDetails);
 
 
 

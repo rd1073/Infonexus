@@ -97,8 +97,29 @@ const searchDoctors = async (req, res) => {
   }
 };
 
+const getDoctorDetails = async (req, res) => {
+  try {
+      // Assuming the logged-in doctor's details are stored in req.user
+      const doctor = req.user;
+      if (!doctor) {
+          return res.status(401).json({ message: 'Doctor not authenticated' });
+      }
 
-  module.exports={ addDoctor, searchDoctors,getDoctors, viewAllDoctors}
+      // Fetch the details of the logged-in doctor from the database
+      const doctorDetails = await Doctor.findById(doctor.id);
+      if (!doctorDetails) {
+          return res.status(404).json({ message: 'Doctor not found' });
+      }
+
+      res.json(doctorDetails);
+  } catch (error) {
+      console.error('Error fetching doctor details:', error);
+      res.status(500).json({ message: 'Failed to fetch doctor details' });
+  }
+};
+
+
+  module.exports={ addDoctor, searchDoctors, getDoctorDetails, getDoctors, viewAllDoctors}
 
 
  
