@@ -71,7 +71,18 @@ const User = conn.model('User', userSchema);
 
 const Provider = conn.model('Provider', providerSchema);
 
+const serviceSchema = new mongoose.Schema({
+  name: { type: String, required: true, unique:true },
+  description: { type: String, required: true },
+  category: { type: String, enum: ['Chronic Conditions', 'Virus Infections', 'Bacterial Infections', 'Genetic Conditions', 'HIV/AIDS (STI)'], required: true },
+  serviceProviders: [String],
+  cost: String,
+  treatmentMethods: String,
+  duration: String,
+});
+
+const Service = conn.model('Service', serviceSchema);
 
 
 
-module.exports = { conn , User, Doctor,Provider};
+module.exports = { conn , User, Doctor,Provider, Service};

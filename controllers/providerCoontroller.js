@@ -96,7 +96,7 @@ const searchProviders = async (req, res) => {
 };
 
  
-const updateProvider = async (req, res) => {
+/*const updateProvider = async (req, res) => {
     try {
         const { name, specialty, location, contact, qualifications, experience, servicesOffered, languagesSpoken, affiliations, technologicalCapabilities } = req.body;
         const provider = await Provider.findById(req.params.id);
@@ -120,7 +120,7 @@ const updateProvider = async (req, res) => {
         res.status(500).json({ message: 'Failed to update provider' });
     }
 };
+*/
 
-
-module.exports={ addProvider, getProviders, searchProviders, viewAllProviders,updateProvider}
+module.exports={ addProvider, getProviders, searchProviders, viewAllProviders}
 
