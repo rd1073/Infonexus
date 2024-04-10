@@ -1,17 +1,11 @@
 const express = require("express");
+const { addDoctor, getDoctors, searchDoctors, viewAllDoctors } = require("../controllers/doctorController");
 
-const { addDoctor, searchDoctor } =require("../controllers/doctorController");
- 
 const router = express.Router();
 
-
-
-  
 router.route("/add-doctor").post(addDoctor);
-router.route("/search-doctor").post(searchDoctor);
+router.route("/get-all-doctors").get(getDoctors);
+router.route("/view-all-doctors").get(viewAllDoctors);
+router.route("/search-doctors").post(searchDoctors);
 
-
-
-
- 
-module.exports=  router ;
+module.exports = router;

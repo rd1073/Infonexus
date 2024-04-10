@@ -30,33 +30,28 @@ const userSchema = new mongoose.Schema({
 const User = conn.model('User', userSchema);
 
 
+
 const doctorSchema = new mongoose.Schema({
-  doctorId: {
-    type: String,
-    unique: true,
-    required: true
-  },
-  name: {
-    type: String,
-    required: true
-  },
-  specialty: {
-    type: String,
-    required: true
-  },
-  hospital: {
-    type: String,
-    required: true
-  },
-  location: {
-    type: String,
-    required: true
-  },
-  contact: {
-    type: String,
-    required: true
+  doctorId: { type: String, required: true },
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  bio: String,
+  specialization: { type: String, required: true },
+  qualifications: String,
+  experience: { type: Number, default: 0 },
+  servicesOffered: [String],
+  languagesSpoken: [String],
+  affiliations: [String],
+  technologicalCapabilities: [String],
+  location: String,
+  contactInfo: {
+      phone: String,
+      address: String
   }
 });
+
+const Doctor = conn.model('Doctor', doctorSchema);
 
 const providerSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -74,7 +69,7 @@ const providerSchema = new mongoose.Schema({
   technologicalCapabilities: [String]
 });
 
-const Doctor = conn.model('Doctor', doctorSchema);
+
 
 
  
