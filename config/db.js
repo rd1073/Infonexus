@@ -84,5 +84,16 @@ const serviceSchema = new mongoose.Schema({
 const Service = conn.model('Service', serviceSchema);
 
 
+const blogSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  content: { type: String, required: true },
+  author: { type: String, required: true },
+  date: { type: Date, default: Date.now },
+  tags: [{ type: String }],
+  categories: [{ type: String }]
+});
 
-module.exports = { conn , User, Doctor,Provider, Service};
+const Blog = conn.model('Blog', blogSchema);
+
+
+module.exports = { conn , User, Doctor,Provider, Service, Blog};
